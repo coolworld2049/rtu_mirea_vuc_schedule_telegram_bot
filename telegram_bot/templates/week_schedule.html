@@ -1,0 +1,12 @@
+<b>{{ data.schedule.var_date }} - {{ data.platoon.platoon_number }} ({{
+  data.platoon.specialty_code }})</b>{% if data.schedule.subjects[0].name is none %}
+
+Занятия отсутствуют
+
+{% else %}
+{% for subject in data.schedule.subjects %}{% if subject.name is not none %}
+<u>Пара №{{ loop.index }}</u>
+<b>{{ subject.name }}</b>
+{{ subject.teacher }} ({{ subject.auditory }}){% endif %}
+{% endfor %}
+{% endif %}<span class="tg-spoiler">Обновлено {{ relevance_date }}</span>

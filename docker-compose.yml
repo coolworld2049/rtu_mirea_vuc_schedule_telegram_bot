@@ -1,0 +1,69 @@
+version: '3.9'
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    hostname: telegram_bot-postgres
+    restart: always
+    environment:
+      - POSTGRES_USER=${TELEGRAM_BOT_DB_USER}
+      - POSTGRES_PASSWORD=${TELEGRAM_BOT_DB_PASSWORD}
+      - POSTGRES_DB=${TELEGRAM_BOT_DB_DATABASE}
+      - PGPORT=${TELEGRAM_BOT_DB_PORT}
+    volumes:
+      - ./postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: [ "CMD", "pg_isready", "-U", "${TELEGRAM_BOT_DB_USER}", "-d", "${TELEGRAM_BOT_DB_DATABASE}", "-h", "localhost" ]
+      interval: 20s
+      timeout: 5s
+      retries: 3
+  pgbackups:
+    image: prodrigestivill/postgres-backup-local
+    hostname: telegram_bot-pgbackups
+    restart: always
+    environment:
+      - POSTGRES_HOST=postgres
+      - POSTGRES_PORT=${TELEGRAM_BOT_DB_PORT}
+      - POSTGRES_DB=${TELEGRAM_BOT_DB_DATABASE}
+      - POSTGRES_USER=${TELEGRAM_BOT_DB_USER}
+      - POSTGRES_PASSWORD=${TELEGRAM_BOT_DB_PASSWORD}
+      - POSTGRES_EXTRA_OPTS=-Z6 --schema=public --blobs
+      - SCHEDULE=@daily
+      - BACKUP_KEEP_DAYS=7
+      - BACKUP_KEEP_WEEKS=4
+      - BACKUP_KEEP_MONTHS=6
+      - HEALTHCHECK_PORT=8080
+    depends_on:
+      - postgres
+    volumes:
+      - ./pgbackups_data:/backups
+  redis:
+    image: bitnami/redis:latest
+    hostname: telegram_bot-redis
+    restart: always
+    environment:
+      ALLOW_EMPTY_PASSWORD: "yes"
+      REDIS_PORT_NUMBER: ${TELEGRAM_BOT_REDIS_PORT}
+    healthcheck:
+      test: redis-cli -p ${TELEGRAM_BOT_REDIS_PORT} ping
+      interval: 5s
+      timeout: 2s
+      retries: 3
+  bot:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    hostname: telegram_bot-bot
+    restart: always
+    env_file:
+      - .env
+    environment:
+      TZ: Europe/Moscow
+      TELEGRAM_BOT_DB_HOST: telegram_bot-postgres
+      TELEGRAM_BOT_REDIS_HOST: telegram_bot-redis
+      TELEGRAM_BOT_SCHEDULE_API_BASE_URL: http://localhost:8000
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy

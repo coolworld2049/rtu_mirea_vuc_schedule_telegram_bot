@@ -1,0 +1,14 @@
+from aiogram.types import InlineKeyboardButton
+from aiogram.utils.keyboard import InlineKeyboardBuilder
+
+
+def help_keyboard():
+    builder = InlineKeyboardBuilder()
+    builder.add(
+        InlineKeyboardButton(
+            text="Сообщить об ошибке",
+            url="https://github.com/coolworld2049/rtu_mirea_vuc/issues/new",
+        )
+    )
+    builder.adjust(2, 2)
+    return builder

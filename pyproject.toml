@@ -1,0 +1,29 @@
+[tool.poetry]
+name = "rtu_mirea_vuc_schedule_telegram_bot"
+version = "1.4.4"
+description = ""
+authors = ["coolworld2049 <coolworld2049@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+aiogram = "^3.1.1"
+requests = "^2.31.0"
+python-dotenv = "^1.0.0"
+alembic = "^1.12.0"
+jinja2 = "^3.1.2"
+loguru = "^0.7.2"
+asyncpg = "^0.28.0"
+sqlalchemy = "^2.0.22"
+redis = "^5"
+posthog = "^3.0.2"
+psycopg2 = "^2.9.9"
+tenacity = "^8.2.3"
+rtu-mirea-vuc-schedule-client = "^1.0.0"
+cashew = {extras = ["redis"], version = "^0.4.1"}
+pydantic = "^2"
+pydantic-settings = "^2"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

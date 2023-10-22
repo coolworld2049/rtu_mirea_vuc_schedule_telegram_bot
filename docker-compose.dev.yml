@@ -1,0 +1,16 @@
+version: '3.9'
+
+services:
+  postgres:
+    extends:
+      service: postgres
+      file: docker-compose.yml
+    ports:
+      - ${TELEGRAM_BOT_DB_PORT}:${TELEGRAM_BOT_DB_PORT}
+  redis:
+    image: redis/redis-stack:latest
+    ports:
+      - ${TELEGRAM_BOT_REDIS_PORT}:6379
+      - "8002:8001"
+volumes:
+  postgres_data:
