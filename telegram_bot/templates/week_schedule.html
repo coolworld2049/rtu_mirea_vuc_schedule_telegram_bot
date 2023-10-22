@@ -1,5 +1,5 @@
 <b>{{ data.schedule.var_date }} - {{ data.platoon.platoon_number }} ({{
-  data.platoon.specialty_code }})</b>{% if data.schedule.subjects[0].name is none %}
+  data.platoon.specialty_code }})</b>{% if data.schedule.subjects|length < 1 %}
 
 Занятия отсутствуют
 
