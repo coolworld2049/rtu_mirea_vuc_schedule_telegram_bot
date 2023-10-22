@@ -1,10 +1,18 @@
 version: '3.9'
 
+networks:
+  rtu_mirea_vuc_schedule_default:
+    external: true
+  default:
+    driver: bridge
+
 services:
   postgres:
     image: postgres:15-alpine
     hostname: telegram_bot-postgres
     restart: always
+    networks:
+      - default
     environment:
       - POSTGRES_USER=${TELEGRAM_BOT_DB_USER}
       - POSTGRES_PASSWORD=${TELEGRAM_BOT_DB_PASSWORD}
@@ -35,12 +43,16 @@ services:
       - HEALTHCHECK_PORT=8080
     depends_on:
       - postgres
+    networks:
+      - default
     volumes:
       - ./pgbackups_data:/backups
   redis:
     image: bitnami/redis:latest
     hostname: telegram_bot-redis
     restart: always
+    networks:
+      - default
     environment:
       ALLOW_EMPTY_PASSWORD: "yes"
       REDIS_PORT_NUMBER: ${TELEGRAM_BOT_REDIS_PORT}
@@ -55,13 +67,16 @@ services:
       dockerfile: Dockerfile
     hostname: telegram_bot-bot
     restart: always
+    networks:
+      - default
+      - rtu_mirea_vuc_schedule_default
     env_file:
       - .env
     environment:
       TZ: Europe/Moscow
       TELEGRAM_BOT_DB_HOST: telegram_bot-postgres
       TELEGRAM_BOT_REDIS_HOST: telegram_bot-redis
-      TELEGRAM_BOT_SCHEDULE_API_BASE_URL: http://localhost:8000
+      TELEGRAM_BOT_SCHEDULE_API_BASE_URL: http://schedule_service-api:8000
     depends_on:
       postgres:
         condition: service_healthy

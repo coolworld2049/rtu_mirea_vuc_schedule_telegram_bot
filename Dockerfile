@@ -1,6 +1,10 @@
-FROM python:3.11.6-slim-bullseye as build
+FROM python:3.11.6-slim-bullseye
 
-RUN pip install poetry==1.4.2
+RUN apt-get update \
+    && apt-get -y install libpq-dev gcc \
+    && pip install psycopg2
+
+RUN pip install poetry==1.3.2
 
 RUN poetry config virtualenvs.create false
 
@@ -14,15 +18,9 @@ COPY . /app/
 
 RUN poetry install
 
-
-FROM build as migration
-
 WORKDIR /app/telegram_bot
 
 CMD ["python", "-m", "alembic", "upgrade", "head"]
-
-
-FROM migration as prod
 
 WORKDIR /app
 
