@@ -55,7 +55,9 @@ class ScheduleApiSettings(BaseSettings):
 
     @property
     def schedule_api_configuration(self):
-        return rtu_mirea_vuc_schedule_client.Configuration(host=self.schedule_api_base_url)
+        return rtu_mirea_vuc_schedule_client.Configuration(
+            host=self.schedule_api_base_url,
+        )
 
 
 class Settings(RedisSettings, DatabaseSettings, ScheduleApiSettings):
