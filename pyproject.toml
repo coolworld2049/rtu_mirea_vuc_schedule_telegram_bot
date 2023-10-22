@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "rtu_mirea_vuc_schedule_telegram_bot"
-version = "1.4.4"
+version = "1.0.0"
 description = ""
 authors = ["coolworld2049 <coolworld2049@gmail.com>"]
 readme = "README.md"
@@ -35,7 +35,7 @@ autoflake = "^1.6.1"
 [tool.isort]
 profile = "black"
 multi_line_output = 3
-src_paths = ["telegram_bot",]
+src_paths = ["telegram_bot ",]
 
 [build-system]
 requires = ["poetry-core"]
