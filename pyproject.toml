@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "rtu_mirea_vuc_schedule_telegram_bot"
-version = "1.0.0"
+version = "1.0.1"
 description = ""
 authors = ["coolworld2049 <coolworld2049@gmail.com>"]
 readme = "README.md"
@@ -19,11 +19,10 @@ redis = "^5"
 posthog = "^3.0.2"
 psycopg2 = "^2.9.9"
 tenacity = "^8.2.3"
-rtu-mirea-vuc-schedule-client = "^1.0.0"
+rtu-mirea-vuc-schedule-client = "^1.0.2"
 cashew = {extras = ["redis"], version = "^0.4.1"}
 pydantic = "^2.3"
 pydantic-settings = "^2"
-schedule-service-client = "^1.5.0"
 
 [tool.poetry.group.dev.dependencies]
 isort = "^5.11.4"
