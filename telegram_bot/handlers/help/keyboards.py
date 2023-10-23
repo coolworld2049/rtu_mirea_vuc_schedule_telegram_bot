@@ -7,8 +7,8 @@ def help_keyboard():
     builder.add(
         InlineKeyboardButton(
             text="Сообщить об ошибке",
-            url="https://github.com/coolworld2049/rtu_mirea_vuc/issues/new",
-        )
+            url="https://github.com/coolworld2049/rtu_mirea_vuc_schedule_telegram_bot/issues/new",
+        ),
     )
     builder.adjust(2, 2)
     return builder

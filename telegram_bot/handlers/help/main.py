@@ -1,4 +1,4 @@
-from aiogram import types, Router
+from aiogram import Router, types
 from aiogram.filters import Command
 from aiogram.fsm.context import FSMContext
 
@@ -13,6 +13,6 @@ async def help(message: types.Message, state: FSMContext):
     await state.clear()
     await del_prev_message(message)
     await message.answer(
-        "Помощь",
+        "Информация",
         reply_markup=help_keyboard().as_markup(),
     )

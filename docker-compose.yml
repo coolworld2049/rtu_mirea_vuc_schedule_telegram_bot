@@ -19,7 +19,7 @@ services:
       - POSTGRES_DB=${TELEGRAM_BOT_DB_DATABASE}
       - PGPORT=${TELEGRAM_BOT_DB_PORT}
     volumes:
-      - ./postgres_data:/var/lib/postgresql/data
+      - ./volumes/postgres_data:/var/lib/postgresql/data
     healthcheck:
       test: [ "CMD", "pg_isready", "-U", "${TELEGRAM_BOT_DB_USER}", "-d", "${TELEGRAM_BOT_DB_DATABASE}", "-h", "localhost" ]
       interval: 20s
@@ -46,7 +46,7 @@ services:
     networks:
       - default
     volumes:
-      - ./pgbackups_data:/backups
+      - ./volumes/pgbackups_data:/backups
   redis:
     image: bitnami/redis:latest
     hostname: telegram_bot-redis
@@ -76,7 +76,7 @@ services:
       TZ: Europe/Moscow
       TELEGRAM_BOT_DB_HOST: telegram_bot-postgres
       TELEGRAM_BOT_REDIS_HOST: telegram_bot-redis
-      TELEGRAM_BOT_SCHEDULE_API_BASE_URL: http://schedule_service-api:8000
+      TELEGRAM_BOT_SCHEDULE_API_BASE_URL: http://schedule-service:8000
     depends_on:
       postgres:
         condition: service_healthy

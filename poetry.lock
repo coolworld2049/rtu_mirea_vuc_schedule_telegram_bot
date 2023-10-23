@@ -1808,29 +1808,12 @@ jupyter = ["ipywidgets (>=7.5.1,<9)"]
 
 [[package]]
 name = "rtu-mirea-vuc-schedule-client"
-version = "1.0.1"
-description = "RTU MIREA VUC Schedule"
+version = "1.0.2"
+description = "rtu mirea vuc schedule"
 optional = false
 python-versions = "^3.7"
 files = [
-    {file = "rtu-mirea-vuc-schedule-client-1.0.1.tar.gz", hash = "sha256:5ffaefc96029d924d6476494747eb85160b264fa3fa9e13c07959212f26238be"},
-]
-
-[package.dependencies]
-aiohttp = ">=3.8.4"
-pydantic = ">=2"
-python-dateutil = ">=2.8.2"
-typing-extensions = ">=4.7.1"
-urllib3 = ">=1.25.3"
-
-[[package]]
-name = "schedule-service-client"
-version = "1.5.0"
-description = "RTU MIREA VUC Schedule"
-optional = false
-python-versions = "^3.7"
-files = [
-    {file = "schedule-service-client-1.5.0.tar.gz", hash = "sha256:6db5fcd74ad8d1c6aab18120a181c866cabc6768e29f22c48ba2dc1219a348c0"},
+    {file = "rtu-mirea-vuc-schedule-client-1.0.2.tar.gz", hash = "sha256:67fb32666ccbd9359e4608653ff9a708a287aa04660180c5018cc1de135dfa22"},
 ]
 
 [package.dependencies]
@@ -2033,13 +2016,13 @@ zstd = ["zstandard (>=0.18.0)"]
 
 [[package]]
 name = "virtualenv"
-version = "20.24.5"
+version = "20.24.6"
 description = "Virtual Python Environment builder"
 optional = false
 python-versions = ">=3.7"
 files = [
-    {file = "virtualenv-20.24.5-py3-none-any.whl", hash = "sha256:b80039f280f4919c77b30f1c23294ae357c4c8701042086e3fc005963e4e537b"},
-    {file = "virtualenv-20.24.5.tar.gz", hash = "sha256:e8361967f6da6fbdf1426483bfe9fca8287c242ac0bc30429905721cefbff752"},
+    {file = "virtualenv-20.24.6-py3-none-any.whl", hash = "sha256:520d056652454c5098a00c0f073611ccbea4c79089331f60bf9d7ba247bb7381"},
+    {file = "virtualenv-20.24.6.tar.gz", hash = "sha256:02ece4f56fbf939dbbc33c0715159951d6bf14aaf5457b092e4548e1382455af"},
 ]
 
 [package.dependencies]
@@ -2187,4 +2170,4 @@ multidict = ">=4.0"
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "4174612fbc2b691d3a8e02b60aa85c9f069ae9446feaf8772e56d20732dac310"
+content-hash = "6c1e79c6138be764d47e71c8441c76f297d3d6ef32c0101c287cd5ba2431f190"

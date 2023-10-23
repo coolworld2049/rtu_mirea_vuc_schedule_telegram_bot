@@ -21,9 +21,9 @@ async def get_study_day_schedule(
             **user_settings.model_dump(exclude_none=True), **kwargs
         )
         relevance_date = await WorkbookApi(
-            api_client
-        ).get_course_workbook_relevance_api_v1_workbook_relevance_course_get(
-            course=user_settings.course
+            api_client,
+        ).get_workbook_relevance_api_v1_workbook_relevance_get(
+            course=user_settings.course,
         )
         text = render_template(
             "week_schedule.html",
