@@ -5,11 +5,10 @@ networks:
     external: true
   default:
     driver: bridge
-
 services:
   postgres:
     image: postgres:15-alpine
-    hostname: telegram_bot-postgres
+    hostname: telegram-bot-postgres
     restart: always
     networks:
       - default
@@ -19,15 +18,10 @@ services:
       - POSTGRES_DB=${TELEGRAM_BOT_DB_DATABASE}
       - PGPORT=${TELEGRAM_BOT_DB_PORT}
     volumes:
-      - ~/volumes/postgres_data:/var/lib/postgresql/data
-    healthcheck:
-      test: [ "CMD", "pg_isready", "-U", "${TELEGRAM_BOT_DB_USER}", "-d", "${TELEGRAM_BOT_DB_DATABASE}", "-h", "localhost" ]
-      interval: 20s
-      timeout: 5s
-      retries: 3
+      - ~/volumes/rtu_mirea_vuc_schedule_telegram_bot/postgres_data:/var/lib/postgresql/data
   pgbackups:
     image: prodrigestivill/postgres-backup-local
-    hostname: telegram_bot-pgbackups
+    hostname: telegram-bot-pgbackups
     restart: always
     environment:
       - POSTGRES_HOST=postgres
@@ -46,26 +40,27 @@ services:
     networks:
       - default
     volumes:
-      - ~/volumes/pgbackups_data:/backups
+      - ~/volumes/rtu_mirea_vuc_schedule_telegram_bot/pgbackups_data:/backups
   redis:
     image: bitnami/redis:latest
-    hostname: telegram_bot-redis
+    hostname: telegram-bot-redis
+    user: root
     restart: always
     networks:
       - default
+    command: /opt/bitnami/scripts/redis/run.sh --maxclients 100000
+    ports:
+      - ${TELEGRAM_BOT_REDIS_PORT}
     environment:
-      ALLOW_EMPTY_PASSWORD: "yes"
+      ALLOW_EMPTY_PASSWORD: yes
       REDIS_PORT_NUMBER: ${TELEGRAM_BOT_REDIS_PORT}
-    healthcheck:
-      test: redis-cli -p ${TELEGRAM_BOT_REDIS_PORT} ping
-      interval: 5s
-      timeout: 2s
-      retries: 3
+    volumes:
+      - ~/volumes/rtu_mirea_vuc_schedule_telegram_bot/redis_data:/bitnami/redis/data
   bot:
     build:
       context: .
       dockerfile: Dockerfile
-    hostname: telegram_bot-bot
+    hostname: telegram-bot
     restart: always
     networks:
       - default
@@ -74,11 +69,9 @@ services:
       - .env
     environment:
       TZ: Europe/Moscow
-      TELEGRAM_BOT_DB_HOST: telegram_bot-postgres
-      TELEGRAM_BOT_REDIS_HOST: telegram_bot-redis
+      TELEGRAM_BOT_DB_HOST: telegram-bot-postgres
+      TELEGRAM_BOT_REDIS_HOST: telegram-bot-redis
       TELEGRAM_BOT_SCHEDULE_API_BASE_URL: http://schedule-service:8000
     depends_on:
-      postgres:
-        condition: service_healthy
-      redis:
-        condition: service_healthy
+      - postgres
+      - redis

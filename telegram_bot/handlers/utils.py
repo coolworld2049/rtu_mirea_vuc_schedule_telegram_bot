@@ -19,7 +19,7 @@ def process_handler_error(func):
         sleep_time_sec = 2 + round(len(e) / 50, 1)
         text = (
             f"Ошибка:\n\n"
-            f"<code>{e.strip()}</code>"
+            f"{e.strip()}"
             f"\n\nЭто сообщение будет <b>удалено</b> через <b>{int(sleep_time_sec)} секунды</b>❗"
         )
         telegram_obj_answer = await telegram_obj.answer(text)
@@ -27,7 +27,8 @@ def process_handler_error(func):
         await telegram_obj_answer.delete()
         with suppress(TelegramBadRequest):
             for m_id in range(
-                telegram_obj_answer.message_id - 1, telegram_obj_answer.message_id + 1
+                telegram_obj_answer.message_id - 1,
+                telegram_obj_answer.message_id + 1,
             ):
                 await telegram_obj.bot.delete_message(telegram_obj.from_user.id, m_id)
         try:
