@@ -8,7 +8,7 @@ from telegram_bot.handlers.utils import del_prev_message
 router = Router(name=__file__)
 
 
-@router.message(Command("help"))
+@router.message(Command("issue"))
 async def help(message: types.Message, state: FSMContext):
     await state.clear()
     await del_prev_message(message)
