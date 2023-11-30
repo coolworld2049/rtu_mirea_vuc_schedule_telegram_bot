@@ -3,7 +3,7 @@ import asyncio
 from loguru import logger
 
 from telegram_bot._logging import configure_logging
-from telegram_bot.db.utils import wait_for_db, metadata_create_all
+from telegram_bot.db.utils import metadata_create_all, wait_for_db
 from telegram_bot.dispatcher import dp
 from telegram_bot.loader import bot
 from telegram_bot.settings import settings
@@ -15,7 +15,7 @@ async def main():
         configure_logging(settings.log_level.upper())
         await metadata_create_all()
         await set_ui_commands(bot)
-        await dp.start_polling(bot, polling_timeout=5)
+        await dp.start_polling(bot)
         logger.info("Telegram bot started")
 
 
