@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "rtu_mirea_vuc_schedule_telegram_bot"
-version = "1.0.2"
+version = "1.0.3"
 description = ""
 authors = ["coolworld2049 <coolworld2049@gmail.com>"]
 readme = "README.md"
