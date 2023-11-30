@@ -2,7 +2,7 @@ from aiogram.types import InlineKeyboardButton
 from aiogram.utils.keyboard import InlineKeyboardBuilder
 
 
-def help_keyboard():
+def issue_keyboard():
     builder = InlineKeyboardBuilder()
     builder.add(
         InlineKeyboardButton(

@@ -5,7 +5,7 @@ from aiogram.fsm.storage.redis import RedisStorage
 from aiogram.utils.callback_answer import CallbackAnswerMiddleware
 
 from telegram_bot.db.session import async_session
-from telegram_bot.handlers import help, platoon, schedule, user_settings
+from telegram_bot.handlers import issue, platoon, schedule, session, user_settings
 from telegram_bot.loader import redis
 from telegram_bot.middlewares import DbSessionMiddleware
 from telegram_bot.middlewares.posthog import PosthogMiddleware
@@ -19,4 +19,10 @@ dp = Dispatcher(
 dp.update.middleware(DbSessionMiddleware(session_pool=async_session))
 dp.update.middleware(PosthogMiddleware()) if settings.posthog_project_api_key else None
 dp.callback_query.middleware(CallbackAnswerMiddleware())
-dp.include_routers(schedule.router, user_settings.router, platoon.router, help.router)
+dp.include_routers(
+    schedule.router,
+    user_settings.router,
+    platoon.router,
+    issue.router,
+    session.router,
+)

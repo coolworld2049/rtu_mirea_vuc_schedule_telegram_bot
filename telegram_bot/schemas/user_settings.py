@@ -9,6 +9,6 @@ class UserSettingsBase(BaseModel):
 
 
 class UserSettings(UserSettingsBase):
-    user_id: int = None
-    created_at: datetime = None
-    updated_at: datetime = None
+    user_id: int | None = None
+    created_at: datetime | None = None
+    updated_at: datetime | None = None
