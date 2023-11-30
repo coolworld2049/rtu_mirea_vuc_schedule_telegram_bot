@@ -1810,12 +1810,12 @@ jupyter = ["ipywidgets (>=7.5.1,<9)"]
 
 [[package]]
 name = "rtu-mirea-vuc-schedule-client"
-version = "1.0.7"
+version = "1.0.8"
 description = "rtu mirea vuc schedule"
 optional = false
 python-versions = "^3.7"
 files = [
-    {file = "rtu-mirea-vuc-schedule-client-1.0.7.tar.gz", hash = "sha256:e5a834e64e12516d355b9cd84446c6167f783cf056c1fc448c24e2cfde7d4c00"},
+    {file = "rtu-mirea-vuc-schedule-client-1.0.8.tar.gz", hash = "sha256:78669bbd210d1214bad62349504e1533336f244933c6dd904c4192b5a4a2b0e9"},
 ]
 
 [package.dependencies]
@@ -2188,4 +2188,4 @@ multidict = ">=4.0"
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "4a4c39acb294b48e19c90c7927b90cf42c77c2c295525bc5e71fc0e446ee3127"
+content-hash = "246661b62c7d8a230a42100c3017f712fc3b7ff38c17586d79d3417462210893"
