@@ -10,7 +10,7 @@ router = Router(name=__file__)
 
 
 @router.message(Command("session"))
-async def session_exams(message: types.Message, session: AsyncSession):
+async def session_schedule(message: types.Message, session: AsyncSession):
     await del_prev_message(message)
 
     user_settings = await get_user_settings(message, session)
@@ -19,11 +19,12 @@ async def session_exams(message: types.Message, session: AsyncSession):
         user_settings=user_settings,
         where="зачет",
     )
-    text += await get_session_schedule(
+    exams_text = await get_session_schedule(
         message,
         user_settings=user_settings,
         where="экзамен",
     )
+    text = f"<em>Зачеты</em>\n\n{text}\n\n<em>Экзамены</em>\n\n{exams_text}"
     if not text:
         return
     await message.answer(text=text)
